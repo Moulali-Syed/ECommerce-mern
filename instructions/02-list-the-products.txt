@@ -1,0 +1,12 @@
+inside src folder create a file called data.js
+and give info about the products and export it
+
+inside public folder create a folder called images and place the images
+
+import the data.js file into App.js
+
+use the map function to render all the product details
+
+
+Each child in a list should have a unique "key" prop.
+To overcome this error , inside map function the very first element inside the return provide key prop with unique value
