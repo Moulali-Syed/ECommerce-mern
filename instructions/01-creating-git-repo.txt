@@ -18,4 +18,13 @@ and in .gitignore folder , remove the forward slash(/) before the node_modules a
 
 Now click on source control icon in vs code
 
-click on Initialize repository
+click on Initialize repository and give a commit message ,
+
+Now go to github and create a repo and copy the 
+git remote add origin https://.......git
+
+and paste it in cmd inside parent folder path
+
+Now in vs code click on publish branch . this will push all changes in code to github
+
+Then in main folder create a README.md file
