@@ -1,0 +1,21 @@
+open command prompt [cmd + enter]
+
+goto present project path , goto frontend folder and delete .git file
+
+use either of these which ever works
+
+del -rf .git     or    rm -rf .git
+
+C:\WebDevelopment\Ecommerce-MERN\frontend>del -rf .git
+Could Not Find C:\WebDevelopment\Ecommerce-MERN\frontend\-rf
+C:\WebDevelopment\Ecommerce-MERN\frontend\.git\*, Are you sure (Y/N)? Y
+
+
+Now cut the .gitignore file from frontend folder and paste it in parent folder , in our case ECommerce-MERN folder
+
+and in .gitignore folder , remove the forward slash(/) before the node_modules and build , so that they wont get pushed to github
+
+
+Now click on source control icon in vs code
+
+click on Initialize repository

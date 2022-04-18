@@ -1,0 +1,19 @@
+create a folder like ECommerce-MERN and from folder location type cmd
+
+in command  prompt - type       code .  and enter
+
+Open terminal in vs code , by going to terminal --> new terminal
+ or ctrl+shift+`
+
+
+Now create a react app using
+        npx create-react-app frontend
+
+Once you see Happy Hacking - your basic react app is created 
+
+Now in terminal type
+
+        cd frontend
+        npm start
+This will start local development server for react app , in default browser
+
