@@ -1,0 +1,72 @@
+create a new folder inside the main folder , name it backend
+
+Now go to backend folder in terminal , run --> npm init
+press enter for all the questions 
+Now we can see package.json file in backend folder
+
+In order to use ES6 import statement  syntax add 
+
+ "type": "module",
+ inside package.json after the name
+
+ Now lets create a server - create a file server.js inside backend folder
+
+ to create server install express.js  -   npm i express
+
+ once installed check package.json inside dependencies section u can see express
+
+ now import express from 'express'
+
+ const app = express()
+
+ app will have get method which accepts 2 parameters - path and a function
+ app.get('pathHere',function); function will have 2 parameters req,res - res will send data to frontend
+
+ copy the data.js file from frontend folder to backend folder
+
+ define a port 
+
+ a simple server is created as below
+
+ import express from 'express';
+import data from './data';
+
+const app = express();
+
+app.get('/api/products', (req, res) => {
+  res.send(data.products);
+});
+
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`serve at http://localhost:${port}`);
+});
+
+
+in terminal node server.js
+now go to this path and check we will get json data
+http://localhost:5000/api/products
+
+
+Install json viewer on google chrome to get organised json data
+
+In order to keep our server running for every chnages we made install nodemon
+npm i nodemon --save-dev
+
+--save-dev here represents that i need this package only in development and dont want to ship to production phase
+
+in package.json we can see below added
+ "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+
+  To use nodemon go to package.json file and add start:nodemon server.js inside scripts tag as below
+
+  "scripts": {
+    "start": "nodemon server.js",
+
+
+Now we can run our backend using npm start
+
+this will run on every change we make in backend
+
