@@ -1,4 +1,38 @@
-import React, { useEffect, useState } from 'react';
+in front end folder - package.json file
+
+set proxy as below after name
+{
+  "name": "frontend",
+  "proxy": "http://localhost:5000",
+
+  stop and re run frontend using npm start
+
+
+  Step2: To get data from backend api we use axios library
+        go to frontend folder and install --> npm i axios
+
+Step3: in HomeScreen.js define a state to save products from backend using the 
+        useState hook
+
+Step4: use useEffect hook with axios to fetch data from api
+
+const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get('/api/products');
+      setProducts(result.data);
+    };
+    fetchData();
+  }, []);
+
+  Step5: remove the import of static data.js file and map on products instead of data.products
+
+  Now we are getting data from backend , to confirm that open dev tools in chrome
+  network tab - select Fetct XHR
+  and refresh
+
+  _______________________
+  import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 // import data from '../data';
@@ -38,3 +72,4 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
+
