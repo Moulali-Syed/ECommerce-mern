@@ -1,0 +1,53 @@
+To implement routing for home screen and each product
+
+Step1: Install react router dom
+        npm i react-router-dom
+
+Step2: Go to App.js file and wrap whole return inside <BrowserRouter>content here</BrowserRouter>
+        and import {BrowserRouter} from 'react-router-dom
+
+Step3: Inside App.js inside the <main> define
+        <Routes>
+            <Route path='/' element={<HomeScreen/>}/>
+        </Routes>
+
+Step4:create a file HomeScreen inside src folder
+    import React from 'react';
+
+    const HomeScreen = () => {
+    return <div>HomeScreen</div>;
+    };
+
+    export default HomeScreen;
+
+Step5: Lets move all the content from App.js to HomeScreen component
+        cut the content inside main in App.js and paste it in HomeScreen , now import data using ctrl+space ,if required press tab
+
+Step6: Lets define route for each product 
+        <Route path="/product/:slug" element={<ProductScreen />} />
+
+        here colon[:] represents the dynamic data from url 
+
+        now create a component ProductScreen 
+
+        import React from 'react';
+        import { useParams } from 'react-router-dom';
+
+        const ProductScreen = () => {
+        const params = useParams();
+        const { slug } = params;
+        return (
+            <div>
+            <h1>{slug}</h1>
+            </div>
+        );
+        };
+
+        export default ProductScreen;
+
+        To get access of the url dynamic parameter we have useParams hook in react-router-dom , through which we can 
+        get the dynamic changing url data
+
+Step7: Now we see whenever we click on link our page is refreshing , to prevent this we have Link in react-router-dom
+        In HomeScreen.js,App.js file change a to Link ,n import it from react-router-dom
+        This prevents page refresh

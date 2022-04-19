@@ -2,7 +2,7 @@ inside src folder create a file called data.js
 and give info about the products and export it
 
 inside public folder create a folder called images and place the images
-
+image dimensions used // 679px × 829px
 import the data.js file into App.js
 
 use the map function to render all the product details
