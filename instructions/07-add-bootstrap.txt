@@ -1,3 +1,35 @@
+add bootstrap
+npm install react-bootstrap bootstrap
+
+and also install react-router-bootstrap , this has a LinkContainer similar to Link in  react router dom
+
+in index.js file import bootstrap as below
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+now go to App.js and modify header and make necessary imports
+<header>
+          <Navbar bg="dark" variant="dark">
+            <Container>
+              <LinkContainer to="/">
+                <Navbar.Brand>ECommerce</Navbar.Brand>
+              </LinkContainer>
+            </Container>
+          </Navbar>
+        </header>
+
+Now goto index.css and remove styles for header and header a
+
+[
+    bootstrap classes used
+    text-center = this make text to be centered aligned
+    d-flex  = to display as flex ,apply on parent Container
+    flex-column = this sets flex direction to column
+]
+then add class on parent div as sitecontainer and define min-height:100vh
+and to main style as flex:1 so it can occupy empty space and push the footer to bottom
+
+/*
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
@@ -34,3 +66,11 @@ function App() {
 }
 
 export default App;
+
+
+.site-container {
+  min-height: 100vh;
+}
+main {
+  flex: 1;
+}
