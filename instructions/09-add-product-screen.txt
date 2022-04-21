@@ -1,0 +1,58 @@
+if product exist we will show that it is inStock and enable add to cart and update page title based on product
+
+In ProductScreen.js copy the useReducer and useEffect from HomeScreen 
+and change [products to product]
+ const [{ loading, error, product }, dispatch] = useReducer(reducer, {
+    product: [],
+    loading: true,
+    error: '',
+  });
+await axios.get(`/api/products/slug/${slug}`);
+
+
+and in backend go to server.js add a new api path
+
+app.get('/api/products/slug/:slug', (req, res) => {
+  const product = data.products.find((x) => x.slug === req.params.slug);
+  if (product) {
+    res.send(product);
+  } else {
+    res.status(404).send({ message: 'Product Not Found' });
+  }
+  res.send(data.products);
+});
+
+To show the page title as product name use the package
+ npm i react-helmet-async
+
+ in index.js 
+ import { HelmetProvider } from 'react-helmet-async';
+ and wrap App with it
+ <HelmetProvider>
+      <App />
+    </HelmetProvider>
+
+and then in ProductScreen.js add
+<ListGroup.Item>
+                  <Helmet>
+                    <title>{ product.name}</title>
+                  </Helmet>
+              <h1>{product.name}</h1>
+            </ListGroup.Item>
+            <ListGroup.Item>
+
+and also in HomeScreen.js add
+ <Helmet>
+        <title>ECommerce</title>
+      </Helmet>
+      <h1>Featured Products</h1>
+
+To check and display unavaiable stocks we changed countInStock in data.js to 0
+
+In server.js we added a new api to return product information based on slug
+We installed react-helmet-async to display webpage meta data , like title to change
+in App.js we used mt-3 to create a margin top of 3rem space between main and header section
+in index.css we added a class img-large to set max-width of image
+in index.js we wrapped App component with HelmetProvider
+in HomeScreen.js we used Helmet to update page title to product name
+in ProductScreen.js we added code for product image ,info,availablity
