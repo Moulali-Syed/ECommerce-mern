@@ -1,0 +1,196 @@
+in homeScreen.js wrap the return component in Row and Col of bootstrap components
+Col we define the products to be dispalyed based on screen size small,medium,large,margin bottom
+sm={6} md={4} lg={3} className="mb-3"
+
+Then create a new component Product.js and send the each product returned by map as props
+
+In Product.js lets add bootstrap classes 
+
+and add Rating.js component
+
+in index.js add the cdn link for fontawesome
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" />
+
+in index.css we added
+.rating span {
+  color: #ffc000;
+}
+
+.btn-primary {
+  background-color: #ffc000;
+  color: #000;
+}
+
+
+in index.js our style sheet should be after bootstrap style import
+Product.js we created a  Card to display the product details in card format
+
+rating.js we used fontawesome icons to show the rating and also displayed number of reviews
+
+____________________________________________________________________________________________________________________________________
+HomeScreen.js
+
+import React, { useEffect, useReducer } from 'react';
+
+import logger from 'use-reducer-logger';
+import axios from 'axios';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Product from '../components/Product';
+// import data from '../data';
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_REQUEST':
+      return { ...state, loading: true };
+    case 'FETCH_SUCCESS':
+      return { ...state, products: action.payload, loading: false };
+    case 'FETCH_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+const HomeScreen = () => {
+  const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
+    products: [],
+    loading: true,
+    error: '',
+  });
+  //const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch({ type: 'FETCH_REQUEST' });
+      try {
+        const result = await axios.get('/api/products');
+        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+      } catch (err) {
+        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+      }
+    };
+    //setProducts(result.data);
+    fetchData();
+  }, []);
+  return (
+    <div>
+      <h1>Featured Products</h1>
+      <div className="products">
+        {loading ? (
+          <div>Loading ....</div>
+        ) : error ? (
+          <div>{error}</div>
+        ) : (
+          <Row>
+            {products.map((product) => (
+              <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default HomeScreen;
+____________________________________________________________________________________________________________________________________
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Rating from './Rating';
+const Product = (props) => {
+  const { product } = props;
+  return (
+    <Card className="product">
+      <Link to={`/product/${product.slug}`}>
+        <img src={product.image} className="card-img-top" alt={product.name} />
+      </Link>
+      <Card.Body>
+        <Link to={`/product/${product.slug}`}>
+          <Card.Title>{product.name}</Card.Title>
+        </Link>
+        <Rating rating={product.rating} numReviews={product.numReviews} />
+        <Card.Text>${product.price}</Card.Text>
+        <Button>Add to cart</Button>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default Product;
+____________________________________________________________________________________________________________________________________
+import React from 'react';
+
+const Rating = (props) => {
+  const { rating, numReviews } = props;
+
+  return (
+    <div className="rating">
+      <span>
+        <i
+          className={
+            rating >= 1
+              ? 'fas fa-star'
+              : rating >= 0.5
+              ? 'fas fa-star-half-alt'
+              : 'far fa-star'
+          }
+        />
+      </span>
+      <span>
+        <i
+          className={
+            rating >= 2
+              ? 'fas fa-star'
+              : rating >= 1.5
+              ? 'fas fa-star-half-alt'
+              : 'far fa-star'
+          }
+        />
+      </span>
+      <span>
+        <i
+          className={
+            rating >= 3
+              ? 'fas fa-star'
+              : rating >= 2.5
+              ? 'fas fa-star-half-alt'
+              : 'far fa-star'
+          }
+        />
+      </span>
+      <span>
+        <i
+          className={
+            rating >= 4
+              ? 'fas fa-star'
+              : rating >= 3.5
+              ? 'fas fa-star-half-alt'
+              : 'far fa-star'
+          }
+        />
+      </span>
+      <span>
+        <i
+          className={
+            rating >= 5
+              ? 'fas fa-star'
+              : rating >= 4.5
+              ? 'fas fa-star-half-alt'
+              : 'far fa-star'
+          }
+        />
+      </span>
+      <span>{numReviews} reviews</span>
+    </div>
+  );
+};
+
+export default Rating;
